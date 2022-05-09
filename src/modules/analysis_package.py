@@ -1,13 +1,16 @@
 # 处理数据集并打包为对象
 import time
+import numpy as np
 
 
 class Result:
     """用于存储梳理后的数据"""
+
     indexUpdatedAt = int
     length = int
     createdAt = int
     category = str
+    visualData = list()
     owner = {
         "id": str,
         "displayName": str,
@@ -31,6 +34,42 @@ class Result:
         return self.length
 
 
+def address_str(item):
+    """  将复杂的address转换为str
+
+    :param item: 数据集中的address
+    :return: str
+    """
+    states = item['human_address'].split(',')
+    return states[2].split(':')[1].replace('"', '')
+
+
+def data_numpy(data):
+    """ 将数据格式化为便于可视化的格式
+
+    :param data: 结果字典
+    :return: numPy形式的待可视化数据
+    """
+    drawingData = list()
+
+    for column in data.columns:
+        columnList = list()
+        for item in column['cachedContents']['top']:
+            # point[0]:y  point[1]:x
+            point = list()
+            point.append(item['count'])
+            if isinstance(item['item'], str):
+                point.append(item['item'])
+            else:
+                point.append(address_str(item['item']))
+            columnList.append(point)
+        drawingData.append(columnList)
+
+    drawingData = np.asarray(drawingData, dtype='O')
+
+    return drawingData
+
+
 def analysis_package(data):
     """ 分析数据集并打包
 
@@ -44,5 +83,5 @@ def analysis_package(data):
     result.category = data['category']  # 读取数据集类型
     result.columns = data['columns']  # 读取数据子集
     result.length = len(data['columns'])  # 获取数据子集长度
-
+    result.visualData = data_numpy(result)
     return result
