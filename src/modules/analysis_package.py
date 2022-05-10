@@ -1,73 +1,108 @@
 # 处理数据集并打包为对象
-import time
-import numpy as np
-
 
 class Result:
-    """用于存储梳理后的数据"""
-
-    indexUpdatedAt = int
+    """用于存储分析结果"""
+    tables = []
     length = int
-    createdAt = int
-    category = str
-    visualData = list()
-    owner = {
-        "id": str,
-        "displayName": str,
-        "screenName": str,
-        "type": str
-    }
 
-    columns = list()
+    def __init__(self):
+        self.tables = list()
+        self.length = 0
 
     def __str__(self):
-        info = [
-            '数据集更新时间\nindexUpdatedAt:' + str(self.indexUpdatedAt),
-            '数据集创建时间\ncreatedAt:' + str(self.createdAt),
-            '作者id\nowner_id:' + str(self.owner['id']),
-            '数据子集个数\ncount:' + str(self.length),
-            '数据类型\ncategory:' + str(self.category)
-        ]
-        return '\n'.join(info)
+        return "长度为"+str(len(self.tables))+"的Result"
+
+    def append(self, points):
+        temp = Points(points.x.copy(), points.y.copy())
+        self.length += 1
+        self.tables.append(temp)
+
+
+class Points:
+    """用于绘图的坐标"""
+    x = list()
+    y = list()
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
     def __len__(self):
-        return self.length
+        if self.is_match():
+            return len(self.x)
+        else:
+            return 0
+
+    def __str__(self):
+        # print(self.y)
+        # xStr = 'x轴:'+' '.join(self.x)
+        # yStr = 'y轴:'+' '.join(self.y)
+        # return xStr+'\n'+yStr
+        print(id(self.x))
+        print(self.y)
+        return ''
+
+    def is_match(self):
+        if len(self.x) == len(self.y):
+            return True
+        else:
+            return False
 
 
-def address_str(item):
-    """  将复杂的address转换为str
+def calculate(data):
+    """ 计算某个地区的全年患病总和
 
-    :param item: 数据集中的address
-    :return: str
+    :param data: csv文件中的一行
+    :return: 将需要计算的数据相加返回
     """
-    states = item['human_address'].split(',')
-    return states[2].split(':')[1].replace('"', '')
+    ans = 0
+    length = len(data)
+    for i in range(3, length):
+        temp = data[i]
+        try:
+            ans += int(temp)
+        except TypeError:
+            pass
+            # print('字符串异常')
+        except ValueError:
+            pass
+            # print('字符串异常')
+    return ans
 
 
-def data_numpy(data):
-    """ 将数据格式化为便于可视化的格式
+def to_numpy(data):
+    """ 将数据封装为数组
 
-    :param data: 结果字典
-    :return: numPy形式的待可视化数据
+    :param data: 待拼装数据
+    :return: 含有Points列表的Result类
     """
-    drawingData = list()
+    xList = list()
+    yList = list()
+    # 用于拆分星期
+    weekNow = 1
+    result = Result()
+    # 删除第一列
+    data.pop(0)
+    for i in data:
+        if str(weekNow) != i[2]:
+            points = Points(xList, yList)
+            # print("下一组points("+str(weekNow)+")添加points")
+            result.append(points)
+            weekNow += 1
+            xList.clear()
+            yList.clear()
+            xList.append(i[0])
+            yList.append(calculate(i))
+        else:
+            xList.append(i[0])
+            yList.append(calculate(i))
 
-    for column in data.columns:
-        columnList = list()
-        for item in column['cachedContents']['top']:
-            # point[0]:y  point[1]:x
-            point = list()
-            point.append(item['count'])
-            if isinstance(item['item'], str):
-                point.append(item['item'])
-            else:
-                point.append(address_str(item['item']))
-            columnList.append(point)
-        drawingData.append(columnList)
+    # print(len(result.tables))
+    # for i in result.tables:
+    #     print(i.x)
+    #     print(i.y)
 
-    drawingData = np.asarray(drawingData, dtype='O')
-
-    return drawingData
+    return result
 
 
 def analysis_package(data):
@@ -76,12 +111,7 @@ def analysis_package(data):
     :param data: 数据集
     :return: 结果对象
     """
-    result = Result()  # 初始化结果
-    result.indexUpdatedAt = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['indexUpdatedAt']))  # 读取数据集更新时间
-    result.createdAt = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['createdAt']))  # 读取数据集创建时间
-    result.owner = data['owner']  # 读取数据集作者信息
-    result.category = data['category']  # 读取数据集类型
-    result.columns = data['columns']  # 读取数据子集
-    result.length = len(data['columns'])  # 获取数据子集长度
-    result.visualData = data_numpy(result)
-    return result
+
+    # print(to_numpy(data))
+
+    return to_numpy(data)

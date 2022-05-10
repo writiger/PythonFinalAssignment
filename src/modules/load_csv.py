@@ -1,4 +1,5 @@
 import json
+import csv
 
 
 def load_csv(location):
@@ -7,6 +8,11 @@ def load_csv(location):
     :param location: 待分析数据集相对位置
     :return: 完整的字典格式数据
     """
-
-    return ''
+    data = list()
+    with open(location) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            # 行号从1开始
+            data.append(row)
+    return data
 
