@@ -33,15 +33,6 @@ class Points:
         else:
             return 0
 
-    def __str__(self):
-        # print(self.y)
-        # xStr = 'x轴:'+' '.join(self.x)
-        # yStr = 'y轴:'+' '.join(self.y)
-        # return xStr+'\n'+yStr
-        print(id(self.x))
-        print(self.y)
-        return ''
-
     def is_match(self):
         if len(self.x) == len(self.y):
             return True
@@ -97,10 +88,6 @@ def to_numpy(data):
             xList.append(i[0])
             yList.append(calculate(i))
 
-    # print(len(result.tables))
-    # for i in result.tables:
-    #     print(i.x)
-    #     print(i.y)
 
     return result
 
