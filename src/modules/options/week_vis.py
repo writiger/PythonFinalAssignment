@@ -3,7 +3,8 @@ from src.modules.tools.specification import divider, starting_liner, interval
 
 
 def show_week_scope(data):
-    print(data)
+    maxWeek = len(data.tables)
+    print('一共含有'+str(maxWeek)+'周')
 
 
 def show_histogram(data):
