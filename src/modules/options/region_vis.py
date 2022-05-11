@@ -27,18 +27,26 @@ def show_line_chart(tit, data):
     """
     # 准备数据
     langs = np.arange(len(data))
-    matplotlib.rcParams['font.sans-serif'] = ['KaiTi']
+    matplotlib.rc('font', family='KaiTi', weight='bold')
+    fig, ax = plt.subplots()
 
     # 创建图形对象
-    plt.plot(langs, data, "b", marker='D', markersize=5, label="人数")
-    plt.xlabel("周数")
-    plt.ylabel("患病人数")
-    plt.title(tit + '患病人数统计表（2014）')
+    plt.plot(langs, data, "b", marker='D', markersize=5, label="人数", color='#6A67CE')
+    plt.xlabel("周数", color='#6A67CE')
+    plt.ylabel("患病人数", color='#6A67CE')
+    plt.title(tit + '患病人数统计表（2014）', fontsize='15', color='#6A67CE')
     plt.legend(loc="lower right")
     for x1, y1 in zip(langs, data):
-        plt.text(x1, y1, str(y1), ha='center', va='bottom', fontsize=10)
+        plt.text(x1, y1, str(y1), ha='center', va='bottom', fontsize=10, color='#6A67CE')
+
+    ax.spines['bottom'].set_color('#947EC3')
+    ax.spines['bottom'].set_linewidth(2)
+    ax.spines['right'].set_color(None)
+    ax.spines['left'].set_color('#B689C0')
+    ax.spines['left'].set_linewidth(2)
 
     plt.grid()
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示符号
     plt.show()
 
 

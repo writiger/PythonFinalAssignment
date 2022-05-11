@@ -12,10 +12,10 @@ def show_week_scope(data):
 
 def show_histogram(tit, data):
     y = list(reversed(data.y))
-    matplotlib.rc('font', family='SimHei', weight='bold')
+    matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.rcParams['axes.unicode_minus'] = False
     fig, ax = plt.subplots()
-    b = ax.barh(range(len(data.x)), y, color='#6699CC')
+    b = ax.barh(range(len(data.x)), y, color='#6A67CE')
 
     # 为横向水平的柱图右侧添加数据标签。
     for rect in b:
@@ -25,13 +25,19 @@ def show_histogram(tit, data):
 
     # 设置Y轴纵坐标上的刻度线标签。
     ax.set_yticks(range(len(data.x)))
-    ax.set_yticklabels(data.x)
+    ax.set_yticklabels(data.x, fontsize='8')
+    ax.spines['bottom'].set_color('#947EC3')
+    ax.spines['bottom'].set_linewidth(2)
+    ax.spines['top'].set_color('#947EC3')
+    ax.spines['top'].set_linewidth(2)
+    ax.spines['right'].set_color(None)
+    ax.spines['left'].set_color('#B689C0')
+    ax.spines['left'].set_linewidth(2)
 
     # 不要X横坐标上的label标签。
     plt.xticks(())
 
-    plt.title('第'+tit+'周患病分布图(2014)', loc='center', fontsize='25',
-              fontweight='bold', color='red')
+    plt.title('第'+tit+'周患病分布图(2014)', loc='center', fontsize='15',color='#6A67CE')
 
     plt.show()
 
