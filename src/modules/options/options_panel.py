@@ -19,7 +19,7 @@ def select_option(level, maxOption):
     :param maxOption: 选项数字最大值
     :return: 选项
     """
-    select = input('')
+    select = input('请输入所选功能:')
     try:
         select = int(select)
         if select > maxOption or select < 0:
