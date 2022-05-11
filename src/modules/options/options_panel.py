@@ -1,4 +1,6 @@
 # 操作选项
+from src.modules.tools.specification import select_wrong
+
 
 def show_panel(level):
     """
@@ -21,14 +23,14 @@ def select_option(level, maxOption):
     try:
         select = int(select)
         if select > maxOption or select < 0:
-            print('请输入正确选项(超出范围)')
+            select_wrong('请输入正确选项(超出范围)')
             return '0'
         else:
-            return str(level) + '_' + str(select)  # 格式为*_*
+            return level + '_' + str(select)  # 格式为*_*
     except TypeError:
-        print('请输入正确选项(TYPE)')
+        select_wrong('请输入正确选项(TYPE)')
     except ValueError:
-        print('请输入正确选项(VALUE)')
+        select_wrong('请输入正确选项(VALUE)')
 
 
 class Panel:

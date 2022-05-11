@@ -4,30 +4,7 @@ import numpy as np
 from src.modules.options.options_panel import show_panel, select_option
 import matplotlib.pyplot as plt
 
-
-def show_histogram(tit, data):
-    """ 制作柱状图
-
-    :param tit: 地区名 用于标题
-    :param data: 待制图的数据
-    :return:
-    """
-    print('柱状图')
-    # 创建图形对象
-    print(len(data))
-    # 准备数据
-    langs = np.arange(len(data))
-    # 绘制柱状图
-    plt.plot(langs, data, "b", marker='D', markersize=5, label="周活")
-    matplotlib.rcParams['font.sans-serif'] = ['KaiTi']
-
-    plt.xlabel("周数")
-    plt.ylabel("患病人数")
-    plt.title(tit+'患病人数统计表（2014）')
-    plt.legend(loc="lower right")
-    for x1, y1 in zip(langs, data):
-        plt.text(x1, y1, str(y1), ha='center', va='bottom', fontsize=10)
-    plt.show()
+from src.modules.tools.specification import divider, starting_liner
 
 
 def show_region_name(data):
@@ -39,6 +16,30 @@ def show_region_name(data):
     for i in data.tables[0].x:
         print(i)
     print('----------------')
+
+
+def show_line_chart(tit, data):
+    """ 制作折线图
+
+    :param tit: 地区名 用于标题
+    :param data: 待制图的数据
+    :return:
+    """
+    # 准备数据
+    langs = np.arange(len(data))
+    matplotlib.rcParams['font.sans-serif'] = ['KaiTi']
+
+    # 创建图形对象
+    plt.plot(langs, data, "b", marker='D', markersize=5, label="人数")
+    plt.xlabel("周数")
+    plt.ylabel("患病人数")
+    plt.title(tit + '患病人数统计表（2014）')
+    plt.legend(loc="lower right")
+    for x1, y1 in zip(langs, data):
+        plt.text(x1, y1, str(y1), ha='center', va='bottom', fontsize=10)
+
+    plt.grid()
+    plt.show()
 
 
 def show_region_info(data):
@@ -65,7 +66,7 @@ def show_region_info(data):
     for i in data.tables:
         temp = i.y[location]
         vis_data.append(temp)
-    show_histogram(target, vis_data)
+    show_line_chart(target, vis_data)
 
 
 def region_classification(data):
@@ -73,22 +74,17 @@ def region_classification(data):
 
     :param data: 数据集
     """
-    print('***地区分类***')
+    starting_liner('Region Classification')
     # 进入选项循环
     while True:
         # 显示功能菜单
         show_panel('level_1_1')
         # 输入选项
-        select = select_option(1, 2)
-        if select == '1_1':
+        select = select_option('1_1', 2)
+        if select == '1_1_1':
             show_region_name(data)
-        elif select == '1_2':
+        elif select == '1_1_2':
             show_region_info(data)
-        elif select == '1_0':
-            print('退出地区分类')
+        elif select == '1_1_0':
+            divider('Quit Region Classification')
             break
-
-
-def week_classification(data):
-    print('星期分类')
-    print(data)
