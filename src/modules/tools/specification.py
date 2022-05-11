@@ -32,5 +32,5 @@ def interval():
 
     :return: 打印一行波浪线
     """
-    print("{:~^50s}")
+    print("{:~^50s}".format(''))
 
