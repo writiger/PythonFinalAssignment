@@ -1,9 +1,9 @@
 from src.modules.options.options_panel import show_panel, select_option
-from src.modules.tools.specification import divider, starting_liner
+from src.modules.tools.specification import divider, starting_liner, interval
 
 
 def show_week_scope(data):
-    print('scope')
+    print(data)
 
 
 def show_histogram(data):
@@ -24,8 +24,10 @@ def week_classification(data):
         select = select_option('1_2', 2)
         if select == '1_2_1':
             show_week_scope(data)
+            interval()
         elif select == '1_2_2':
             show_week_info(data)
+            interval()
         elif select == '1_2_0':
             divider('Quit Week Classification')
             break
