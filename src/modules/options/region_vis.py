@@ -51,7 +51,9 @@ def show_line_chart(tit, data):
 
 
 def show_pie_chart(data):
-    print(data)
+    regionNames = list()
+    regionNames = data.tables[0].x
+    print(regionNames)
 
 
 def show_region_info(data):
