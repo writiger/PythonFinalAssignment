@@ -75,7 +75,7 @@ def show_pie_chart(data):
     matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.pie(regionInfo.values(), labels=regionInfo.keys(), autopct='%1.2f%%')
     plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
-    plt.savefig("./患病人数统计表（2014）地区分布图.jpg")
+    # plt.savefig("./患病人数统计表（2014）地区分布图.jpg")
     plt.show()
 
 
