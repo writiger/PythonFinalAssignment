@@ -10,11 +10,18 @@ def show_week_scope(data):
     print('一共含有' + str(maxWeek) + '周')
 
 
-def show_histogram(tit, data):
+def show_histogram(tit, data, isShow):
+    """
+
+    :param tit: 可视化标题
+    :param data: 可视化数据
+    :param isShow: 是否显示图表
+    :return:
+    """
     y = list(reversed(data.y))
     matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.rcParams['axes.unicode_minus'] = False
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 12))
     b = ax.barh(range(len(data.x)), y, color='#6A67CE')
 
     # 为横向水平的柱图右侧添加数据标签。
@@ -37,13 +44,22 @@ def show_histogram(tit, data):
     # 不要X横坐标上的label标签。
     plt.xticks(())
 
-    plt.title('第'+tit+'周患病分布图(2014)', loc='center', fontsize='15',color='#6A67CE')
+    plt.title('第' + tit + '周患病分布图(2014)', loc='center', fontsize='15', color='#6A67CE')
+    if isShow:
+        plt.show()
 
-    plt.show()
+    plt.savefig("../pic/week/第" + tit + "周患病分布图(2014).jpg")
+    plt.clf()
+    plt.close()
 
 
+def show_week_info(data, isShow):
+    """
 
-def show_week_info(data):
+    :param data: 带展示数据
+    :param isShow: 是否显示图表
+    :return:
+    """
     target = input('****请输入待查询周数:')
     maxWeek = len(data.tables)
     try:
@@ -52,7 +68,7 @@ def show_week_info(data):
             select_wrong('请输入正确选项(超出范围)')
             return
         else:
-            show_histogram(str(select+1), data.tables[select])
+            show_histogram(str(select + 1), data.tables[select], isShow)
     except TypeError:
         select_wrong('请输入正确选项(TYPE)')
     except ValueError:
@@ -71,7 +87,7 @@ def week_classification(data):
             show_week_scope(data)
             interval()
         elif select == '1_2_2':
-            show_week_info(data)
+            show_week_info(data, True)
             interval()
         elif select == '1_2_0':
             divider('Quit Week Classification')

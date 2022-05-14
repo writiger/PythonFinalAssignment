@@ -18,9 +18,10 @@ def show_region_name(data):
     print('----------------')
 
 
-def show_line_chart(tit, data):
+def show_line_chart(tit, data, isShow):
     """ 制作折线图
 
+    :param isShow: 是否显示图表
     :param tit: 地区名 用于标题
     :param data: 待制图的数据
     :return:
@@ -47,12 +48,18 @@ def show_line_chart(tit, data):
 
     plt.grid()
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示符号
-    plt.show()
+    if isShow:
+        plt.show()
+
+    plt.savefig('../pic/regionByWeek/'+tit+'患病人数统计表（2014）.jpg')
+    plt.clf()
+    plt.close()
 
 
-def show_pie_chart(data):
+def show_pie_chart(data, isShow):
     """ 显示饼图
 
+    :param isShow: 是否显示图表
     :param data: 处理数据
     :return: 饼图
     """
@@ -75,17 +82,26 @@ def show_pie_chart(data):
     matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.pie(regionInfo.values(), labels=regionInfo.keys(), autopct='%1.2f%%')
     plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
-    # plt.savefig("./患病人数统计表（2014）地区分布图.jpg")
-    plt.show()
+    plt.savefig("../pic/regionPie/患病人数统计表（2014）地区分布图.jpg")
+    if isShow:
+        plt.show()
 
 
-def show_region_info(data):
+def find_region(data, location):
+    visData = list()
+    for i in data.tables:
+        temp = i.y[location]
+        visData.append(temp)
+    return visData
+
+
+def show_region_info(data, isShow):
     """ 输入带查询地名，经检测后汇总数据并执行可视化函数
 
+    :param isShow: 是否显示图表
     :param data: 含有地名以及患病数据的数据
     """
     target = input('****请输入待查询地名:')
-    vis_data = list()
     is_find = False
     location = 0
     # 多组数据地区排序相同随机选择一组查找地区
@@ -100,15 +116,14 @@ def show_region_info(data):
     else:
         print('未查询到此地名')
         return
-    for i in data.tables:
-        temp = i.y[location]
-        vis_data.append(temp)
-    show_line_chart(target, vis_data)
+    vis_data = find_region(data, location)
+    show_line_chart(target, vis_data, isShow)
 
 
-def region_classification(data):
+def region_classification(data, isShow):
     """ 根据地区将数据分批
 
+    :param isShow: 是否显示
     :param data: 数据集
     """
     starting_liner('Region Classification')
@@ -121,9 +136,9 @@ def region_classification(data):
         if select == '1_1_1':
             show_region_name(data)
         elif select == '1_1_2':
-            show_region_info(data)
+            show_region_info(data, isShow)
         elif select == '1_1_3':
-            show_pie_chart(data)
+            show_pie_chart(data, isShow)
         elif select == '1_1_0':
             divider('Quit Region Classification')
             break
