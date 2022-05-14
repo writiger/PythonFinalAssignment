@@ -10,7 +10,7 @@ class Result:
         self.length = 0
 
     def __str__(self):
-        return "长度为"+str(len(self.tables))+"的Result"
+        return "长度为" + str(len(self.tables)) + "的Result"
 
     def append(self, points):
         temp = Points(points.x.copy(), points.y.copy())
@@ -87,7 +87,6 @@ def to_numpy(data):
         else:
             xList.append(i[0])
             yList.append(calculate(i))
-
 
     return result
 
