@@ -50,6 +50,10 @@ def show_line_chart(tit, data):
     plt.show()
 
 
+def show_pie_chart(data):
+    print(data)
+
+
 def show_region_info(data):
     """ 输入带查询地名，经检测后汇总数据并执行可视化函数
 
@@ -88,11 +92,13 @@ def region_classification(data):
         # 显示功能菜单
         show_panel('level_1_1')
         # 输入选项
-        select = select_option('1_1', 2)
+        select = select_option('1_1', 3)
         if select == '1_1_1':
             show_region_name(data)
         elif select == '1_1_2':
             show_region_info(data)
+        elif select == '1_1_3':
+            show_pie_chart(data)
         elif select == '1_1_0':
             divider('Quit Region Classification')
             break
