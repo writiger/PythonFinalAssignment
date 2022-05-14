@@ -51,9 +51,32 @@ def show_line_chart(tit, data):
 
 
 def show_pie_chart(data):
-    regionNames = data.tables[0].x
+    """ 显示饼图
 
-    print(len(regionNames))
+    :param data: 处理数据
+    :return: 饼图
+    """
+    regionNames = data.tables[0].x
+    counts = np.zeros([len(regionNames)], dtype=int)
+    # 计算总和
+    for i in data.tables:
+        temp = np.asarray(i.y)
+        counts = counts + temp
+    allCount = np.sum(counts)
+    regionInfo = {
+        regionName: count for regionName, count in zip(regionNames, counts)
+    }
+    # 将患病人数前九汇总
+    regionInfo = dict(sorted(regionInfo.items(), key=lambda x: x[1], reverse=True)[:9])
+    other = allCount - sum(regionInfo.values())
+    regionInfo['Others'] = other
+
+    # 绘制饼状图
+    matplotlib.rc('font', family='KaiTi', weight='bold')
+    plt.pie(regionInfo.values(), labels=regionInfo.keys(), autopct='%1.2f%%')
+    plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
+    plt.savefig("./患病人数统计表（2014）地区分布图.jpg")
+    plt.show()
 
 
 def show_region_info(data):
