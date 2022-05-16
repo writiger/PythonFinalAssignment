@@ -22,7 +22,7 @@ $  pip install numpy
 $  pip install matplotlib
 ```
 
-所需文件夹
+所需文件夹**程序会尝试自动生成**
 ```shell
 ../pics/regionByWeek
 ../pics/regionPie
@@ -94,6 +94,7 @@ $ python main.py
 | | | +--update_pic.py  
 | | | +--week_vis.py  
 | | +--tools  
+| | | +--init_dir.py  
 | | | +--specification.py  
 | | +--visualization.py  
 
