@@ -1,4 +1,4 @@
-from src.modules.options.options_panel import Panel, show_panel, select_option
+from src.modules.options.options_panel import  show_panel, select_option
 from src.modules.options.region_vis import region_classification
 from src.modules.options.update_pic import update_pic
 from src.modules.options.week_vis import week_classification
