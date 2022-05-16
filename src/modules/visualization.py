@@ -1,4 +1,5 @@
-from src.modules.options.options_panel import  show_panel, select_option
+from src.modules.options.init_dir import ini_dir
+from src.modules.options.options_panel import show_panel, select_option
 from src.modules.options.region_vis import region_classification
 from src.modules.options.update_pic import update_pic
 from src.modules.options.week_vis import week_classification
@@ -10,10 +11,9 @@ def visualize(data):
 
     :param data: 可视化数据
     """
-
-    is_stop = False
+    ini_dir()
     starting_liner(' Start of the program ')
-    while not is_stop:
+    while True:
         show_panel('level_1')
         select = select_option('0', 3)
         if select == '0_1':
