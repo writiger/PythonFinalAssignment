@@ -3,10 +3,10 @@ from src.modules.tools.specification import select_wrong
 
 
 def show_panel(level):
-    """
+    """ 显示相应选项面板
 
     :param level: 待显示面板
-    :return:
+    :return: None
     """
     panel = Panel()
     panel.show(level)

@@ -1,7 +1,7 @@
 # 处理数据集并打包为对象
 
 class Result:
-    """用于存储分析结果"""
+    """ 用于存储分析结果 """
     tables = []
     length = int
 
@@ -19,7 +19,7 @@ class Result:
 
 
 class Points:
-    """用于绘图的坐标"""
+    """ 将信息分为x，y两组"""
     x = list()
     y = list()
 
@@ -61,8 +61,8 @@ def calculate(data):
     return ans
 
 
-def to_numpy(data):
-    """ 将数据封装为数组
+def to_obj(data):
+    """ 将数据封装为对象
 
     :param data: 待拼装数据
     :return: 含有Points列表的Result类
@@ -75,6 +75,7 @@ def to_numpy(data):
     # 删除第一列
     data.pop(0)
     for i in data:
+        # 根据星期分组
         if str(weekNow) != i[2]:
             points = Points(xList, yList)
             # print("下一组points("+str(weekNow)+")添加points")
@@ -100,4 +101,4 @@ def analysis_package(data):
 
     # print(to_numpy(data))
 
-    return to_numpy(data)
+    return to_obj(data)

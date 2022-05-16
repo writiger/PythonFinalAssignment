@@ -1,9 +1,7 @@
 import matplotlib
 import numpy as np
-
 from src.modules.options.options_panel import show_panel, select_option
 import matplotlib.pyplot as plt
-
 from src.modules.tools.specification import divider, starting_liner
 
 
@@ -11,7 +9,7 @@ def show_region_name(data):
     """ 展示全部地区
 
     :param data: 处理后的Result类
-    :return:
+    :return: None
     """
     for i in data.tables[0].x:
         print(i)
@@ -24,7 +22,7 @@ def show_line_chart(tit, data, isShow):
     :param isShow: 是否显示图表
     :param tit: 地区名 用于标题
     :param data: 待制图的数据
-    :return:
+    :return: None
     """
     # 准备数据
     langs = np.arange(len(data))
@@ -40,6 +38,7 @@ def show_line_chart(tit, data, isShow):
     for x1, y1 in zip(langs, data):
         plt.text(x1, y1, str(y1), ha='center', va='bottom', fontsize=10, color='#6A67CE')
 
+    # 设置边框颜色
     ax.spines['bottom'].set_color('#947EC3')
     ax.spines['bottom'].set_linewidth(2)
     ax.spines['right'].set_color(None)
@@ -51,7 +50,7 @@ def show_line_chart(tit, data, isShow):
     if isShow:
         plt.show()
 
-    plt.savefig('../pics/regionByWeek/'+tit+'患病人数统计表（2014）.jpg')
+    plt.savefig('../pics/regionByWeek/' + tit + '患病人数统计表（2014）.jpg')
     plt.clf()
     plt.close()
 
@@ -61,7 +60,7 @@ def show_pie_chart(data, isShow):
 
     :param isShow: 是否显示图表
     :param data: 处理数据
-    :return: 饼图
+    :return: None
     """
     regionNames = data.tables[0].x
     counts = np.zeros([len(regionNames)], dtype=int)
@@ -82,12 +81,18 @@ def show_pie_chart(data, isShow):
     matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.pie(regionInfo.values(), labels=regionInfo.keys(), autopct='%1.2f%%')
     plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
-    plt.savefig("../pics/regionPie/患病人数统计表（2014）地区分布图.jpg")
     if isShow:
         plt.show()
+    plt.savefig("../pics/regionPie/患病人数统计表（2014）地区分布图.jpg")
 
 
 def find_region(data, location):
+    """ 搜索并返回地区信息
+
+    :param data: 数据集
+    :param location: 地区序号
+    :return: 仅含有地区相应信息的list
+    """
     visData = list()
     for i in data.tables:
         temp = i.y[location]
@@ -100,6 +105,7 @@ def show_region_info(data, isShow):
 
     :param isShow: 是否显示图表
     :param data: 含有地名以及患病数据的数据
+    :return : None
     """
     target = input('****请输入待查询地名:')
     is_find = False
@@ -125,6 +131,7 @@ def region_classification(data, isShow):
 
     :param isShow: 是否显示
     :param data: 数据集
+    :return: None
     """
     starting_liner('Region Classification')
     # 进入选项循环

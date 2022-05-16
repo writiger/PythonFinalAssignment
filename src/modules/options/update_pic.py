@@ -1,6 +1,6 @@
 from src.modules.options.region_vis import show_line_chart, find_region, show_pie_chart
 from src.modules.options.week_vis import show_histogram
-from src.modules.tools.specification import divider, interval
+from src.modules.tools.specification import divider
 
 
 def update_week(data):

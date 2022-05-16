@@ -1,4 +1,3 @@
-import json
 import csv
 
 
@@ -15,4 +14,3 @@ def load_csv(location):
             # 行号从1开始
             data.append(row)
     return data
-

@@ -6,6 +6,11 @@ from src.modules.tools.specification import divider, starting_liner, interval, s
 
 
 def show_week_scope(data):
+    """ 输出星期总数
+
+    :param data: 数据集
+    :return: None
+    """
     maxWeek = len(data.tables)
     print('一共含有' + str(maxWeek) + '周')
 
@@ -32,7 +37,10 @@ def show_histogram(tit, data, isShow):
 
     # 设置Y轴纵坐标上的刻度线标签。
     ax.set_yticks(range(len(data.x)))
+    # 调整y轴坐标顺序
+    data.x.reverse()
     ax.set_yticklabels(data.x, fontsize='8')
+    # 设置图表边框颜色
     ax.spines['bottom'].set_color('#947EC3')
     ax.spines['bottom'].set_linewidth(2)
     ax.spines['top'].set_color('#947EC3')
@@ -40,9 +48,6 @@ def show_histogram(tit, data, isShow):
     ax.spines['right'].set_color(None)
     ax.spines['left'].set_color('#B689C0')
     ax.spines['left'].set_linewidth(2)
-
-    # 不要X横坐标上的label标签。
-    plt.xticks(())
 
     plt.title('第' + tit + '周患病分布图(2014)', loc='center', fontsize='15', color='#6A67CE')
     if isShow:
@@ -76,6 +81,11 @@ def show_week_info(data, isShow):
 
 
 def week_classification(data):
+    """ 显示面板并选择功能
+
+    :param data: 数据集
+    :return: None
+    """
     starting_liner('Week Classification')
     # 进入选项循环
     while True:
