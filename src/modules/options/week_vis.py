@@ -48,7 +48,7 @@ def show_histogram(tit, data, isShow):
     if isShow:
         plt.show()
 
-    plt.savefig("../pic/week/第" + tit + "周患病分布图(2014).jpg")
+    plt.savefig("../pics/week/第" + tit + "周患病分布图(2014).jpg")
     plt.clf()
     plt.close()
 

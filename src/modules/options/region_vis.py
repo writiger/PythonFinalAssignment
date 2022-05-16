@@ -51,7 +51,7 @@ def show_line_chart(tit, data, isShow):
     if isShow:
         plt.show()
 
-    plt.savefig('../pic/regionByWeek/'+tit+'患病人数统计表（2014）.jpg')
+    plt.savefig('../pics/regionByWeek/'+tit+'患病人数统计表（2014）.jpg')
     plt.clf()
     plt.close()
 
@@ -82,7 +82,7 @@ def show_pie_chart(data, isShow):
     matplotlib.rc('font', family='KaiTi', weight='bold')
     plt.pie(regionInfo.values(), labels=regionInfo.keys(), autopct='%1.2f%%')
     plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
-    plt.savefig("../pic/regionPie/患病人数统计表（2014）地区分布图.jpg")
+    plt.savefig("../pics/regionPie/患病人数统计表（2014）地区分布图.jpg")
     if isShow:
         plt.show()
 
