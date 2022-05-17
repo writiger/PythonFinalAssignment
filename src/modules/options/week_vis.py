@@ -48,14 +48,12 @@ def show_histogram(tit, data, isShow):
     ax.spines['right'].set_color(None)
     ax.spines['left'].set_color('#B689C0')
     ax.spines['left'].set_linewidth(2)
-
     plt.title('第' + tit + '周患病分布图(2014)', loc='center', fontsize='15', color='#6A67CE')
     if isShow:
         plt.show()
-
-    plt.savefig("../pics/week/第" + tit + "周患病分布图(2014).jpg")
-    plt.clf()
-    plt.close()
+    else:
+        plt.savefig("../pics/week/第" + tit + "周患病分布图(2014).jpg")
+        plt.close()
 
 
 def show_week_info(data, isShow):

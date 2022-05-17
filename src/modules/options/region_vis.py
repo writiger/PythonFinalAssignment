@@ -44,15 +44,17 @@ def show_line_chart(tit, data, isShow):
     ax.spines['right'].set_color(None)
     ax.spines['left'].set_color('#B689C0')
     ax.spines['left'].set_linewidth(2)
+    # print(tit)
+    # print(data)
+    # input('')
 
     plt.grid()
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示符号
     if isShow:
         plt.show()
-
-    plt.savefig('../pics/regionByWeek/' + tit + '患病人数统计表（2014）.jpg')
-    plt.clf()
-    plt.close()
+    else:
+        plt.savefig('../pics/regionByWeek/' + tit + '患病人数统计表（2014）.jpg')
+        plt.close()
 
 
 def show_pie_chart(data, isShow):
@@ -83,7 +85,8 @@ def show_pie_chart(data, isShow):
     plt.title('患病人数统计表（2014）地区分布', fontsize='15', color='#6A67CE')
     if isShow:
         plt.show()
-    plt.savefig("../pics/regionPie/患病人数统计表（2014）地区分布图.jpg")
+    else:
+        plt.savefig("../pics/regionPie/患病人数统计表（2014）地区分布图.jpg")
 
 
 def find_region(data, location):

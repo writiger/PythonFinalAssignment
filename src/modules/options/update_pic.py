@@ -47,7 +47,7 @@ def update_pic(data):
     :param data: 数据集
     :return: None
     """
-    update_week(data)
     update_region(data)
+    update_week(data)
     update_pie(data)
     divider("更新完成")
