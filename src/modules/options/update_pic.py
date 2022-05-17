@@ -48,6 +48,6 @@ def update_pic(data):
     :return: None
     """
     update_region(data)
-    update_week(data)
     update_pie(data)
+    update_week(data)
     divider("更新完成")
