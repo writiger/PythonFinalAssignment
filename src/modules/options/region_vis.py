@@ -44,9 +44,6 @@ def show_line_chart(tit, data, isShow):
     ax.spines['right'].set_color(None)
     ax.spines['left'].set_color('#B689C0')
     ax.spines['left'].set_linewidth(2)
-    # print(tit)
-    # print(data)
-    # input('')
 
     plt.grid()
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示符号
